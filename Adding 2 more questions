@@ -8,7 +8,7 @@ SELECT
     Year,
     Country,
     SUM(COUNT(Medal)) OVER (PARTITION BY Country ORDER BY Year ROWS BETWEEN 9 PRECEDING AND CURRENT ROW) / 10.0 AS RollingAvgMedals
-FROM Results
+FROM athlete_events_clean ac
 WHERE Medal IS NOT NULL
 GROUP BY Year, Country
 ORDER BY Year, Country;
@@ -17,8 +17,8 @@ ORDER BY Year, Country;
 
 --host country perform in terms of medal count 
 
-SELECT Year, HostCountry, COUNT(Medal) AS TotalMedals
-FROM Results
+SELECT Year, city, COUNT(Medal) AS TotalMedals
+FROM athlete_events_clean ac
 WHERE Medal IS NOT NULL
-GROUP BY Year, HostCountry
+GROUP BY Year, city
 ORDER BY Year;
